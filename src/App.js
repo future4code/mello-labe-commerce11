@@ -64,16 +64,26 @@ const MainContainer = styled.div`
 class App extends React.Component {
   state = {
     produtos: produtos,
+    carrinho: [],
+  };
+
+  adicionarAoCarrinho = (produto) => {
+    const novoCarrinho = [...this.state.carrinho, produto];
+    this.setState({carrinho:novoCarrinho})
+    console.table(novoCarrinho)
   };
 
   render() {
     return (
-    <MainContainer>
-      <Filter></Filter>
-      <GridProdutos listaProdutos={this.state.produtos}></GridProdutos>
-      <Carrinho></Carrinho>
-    </MainContainer>
-    )
+      <MainContainer>
+        <Filter></Filter>
+        <GridProdutos
+          produtos={this.state.produtos}
+          funcaoAdicionar={this.adicionarAoCarrinho}
+        ></GridProdutos>
+        <Carrinho></Carrinho>
+      </MainContainer>
+    );
   }
 }
 
