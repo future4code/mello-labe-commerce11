@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Filter from "../Filter/Filter";
 
 const CarrinhoLateral = styled.div`
     display: flex;
@@ -8,21 +9,26 @@ const CarrinhoLateral = styled.div`
 `
 
 function Carrinho(props) {
+
+  const { meuCarrinho, funcaoRemover } = props;
+
   let soma = 0;
-  const comprar = props.meuCarrinho.map((produto) => {
+  const comprar = meuCarrinho.map((produto) => {
     return soma += produto.valor
   });
 
+  
+
   return <CarrinhoLateral>
       <h2>Carrinho</h2>
-      {props.meuCarrinho.map((produto) => 
+      {meuCarrinho.map((produto) => 
         <div>
           <span>{produto.nome} </span>
-          <b> X</b>
+          <button onClick={() => funcaoRemover(produto.id)}>X</button>
           <hr />
         </div>
       )}
-      <div>{`R$ ${soma}`}</div>
+      <div>{`R$ ${soma.toFixed(2)}`}</div>
   </CarrinhoLateral>;
 }
 
