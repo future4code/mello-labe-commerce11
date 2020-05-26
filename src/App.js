@@ -76,6 +76,18 @@ class App extends React.Component {
     this.setState({ ordenacao: evento.target.value });
   };
 
+  componentDidUpdate() {
+    localStorage.setItem('carrinho', JSON.stringify(this.state.carrinho))
+  }
+
+  componentDidMount() {
+    const carrinhoStr = localStorage.getItem('carrinho');
+    if (carrinhoStr) {
+      const carrinhoObj = JSON.parse(carrinhoStr);
+      this.setState({ carrinho: carrinhoObj });
+    }
+  };
+
   render() {
     return (
       <MainContainer>
