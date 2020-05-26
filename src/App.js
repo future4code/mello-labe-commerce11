@@ -64,6 +64,8 @@ const MainContainer = styled.div`
 class App extends React.Component {
   state = {
     produtos: produtos,
+    carrinho: [
+    ],
   };
 
   render() {
@@ -71,7 +73,7 @@ class App extends React.Component {
     <MainContainer>
       <Filter></Filter>
       <GridProdutos listaProdutos={this.state.produtos}></GridProdutos>
-      <Carrinho></Carrinho>
+      <Carrinho meuCarrinho={this.state.carrinho}></Carrinho>
     </MainContainer>
     )
   }
