@@ -61,15 +61,31 @@ const MainContainer = styled.div`
   grid-template-rows: 80vh;
 `;
 
+
+
 class App extends React.Component {
   state = {
     produtos: produtos,
+    filtros: {
+      maxValor: "",
+      minValor: "",
+    },
+    buscarProdutos:"",
   };
+
+  updateFilterValue = (produto) => {
+    this.setState({filtros: {...this.state.filtros, ...produto},
+    })
+  }
+
 
   render() {
     return (
     <MainContainer>
-      <Filter></Filter>
+      <Filter 
+         onChangeFilter={this.updateFilterValue}
+
+      />
       <GridProdutos listaProdutos={this.state.produtos}></GridProdutos>
       <Carrinho></Carrinho>
     </MainContainer>

@@ -7,9 +7,56 @@ const BarraLateral = styled.div`
     border: 1px solid orange;
 `
 
-function Filter() {
+
+function Filter(props) {
+
+  const onChangeMin = (e) => {
+    const value = Number(e.target.value)
+    const novoFiltro = {"valorMinimo": value}
+
+    props.onChangeFilter(novoFiltro)
+    console.log(novoFiltro)
+  }
+
+  const onChangeMax = (e) => {
+    const value = Number(e.target.value)
+    const novoFiltro = {"valorMaximo": value}
+
+    props.onChangeFilter(novoFiltro)
+    console.log(novoFiltro)
+  }
+
+  
+
+  
+
+  
+
+
   return <BarraLateral>
-      <h2>Filtros</h2>
+      <h2>Filtros:</h2>
+     <label>Valor Mínimo:</label>
+     <input 
+      type="number"
+      min={0}
+      name="valorMinimo"
+      onChange={onChangeMin}
+     />
+     <label>Valor Máximo:</label>
+     <input
+       type="number"
+       max={0}
+       name="valorMaximo"
+       onChange={onChangeMax}
+     />
+     <label>Buscar Produtos:</label>
+     <input 
+      type="text"
+      name="busca"
+      value={props.valorInput}
+      onChange={""}
+     />
+
   </BarraLateral>;
 }
 
