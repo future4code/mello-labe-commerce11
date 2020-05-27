@@ -33,9 +33,9 @@ function Carrinho(props) {
     }
     });
 
-  const comprar = meuCarrinho.map((produto) => {
-    return soma += produto.valor
-  });
+  const total = meuCarrinho.reduce((acumulador, produto) => 
+    acumulador + produto.valor, 0
+  );
 
   const carrinhoLateral = novoCarrinho.map((produto) => 
     <div>
@@ -48,7 +48,7 @@ function Carrinho(props) {
   return <CarrinhoLateral>
       <h2>Carrinho</h2>
       {carrinhoLateral}
-      <div>{`R$ ${soma.toFixed(2)}`}</div>
+      <div>{`R$ ${total.toFixed(2)}`}</div>
   </CarrinhoLateral>;
 }
 
