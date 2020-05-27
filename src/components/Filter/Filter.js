@@ -7,9 +7,13 @@ const BarraLateral = styled.div`
     border: 1px solid orange;
 `
 
-function Filter() {
+
+function Filter(props) {
+  const { funcaoMax, funcaoMin, funcaoRegex } = props;
   return <BarraLateral>
-      <h2>Filtros</h2>
+    <input placeholder="Maximo" type="number" onChange={funcaoMax} />
+    <input placeholder="Minimo" type="number" onChange={funcaoMin} />
+    <input placeholder="Pesquisar" onChange={funcaoRegex} />
   </BarraLateral>;
 }
 
