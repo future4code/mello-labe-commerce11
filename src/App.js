@@ -55,6 +55,8 @@ const produtos = [
   },
 ];
 
+let numero = 0;
+
 const MainContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
@@ -67,14 +69,17 @@ class App extends React.Component {
     ordenacao: "crescente",
   };
 
+  contador = (soma) => {
+    return soma += soma
+  };
+
   adicionarAoCarrinho = (produto) => {
-    const novoCarrinho = [...this.state.carrinho, produto];
-    this.setState({ carrinho: novoCarrinho });
+      const novoCarrinho = [...this.state.carrinho, produto];
+      this.setState({ carrinho: novoCarrinho });
   };
 
   cancelarCompra = (id) => {
     const removido = this.state.carrinho.filter(compra => {
-      console.log(id)
       if (compra.id !== id){
         return compra
       }
