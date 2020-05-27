@@ -9,54 +9,11 @@ const BarraLateral = styled.div`
 
 
 function Filter(props) {
-
-  const onChangeMin = (e) => {
-    const value = Number(e.target.value)
-    const novoFiltro = {"valorMinimo": value}
-
-    props.onChangeFilter(novoFiltro)
-    console.log(novoFiltro)
-  }
-
-  const onChangeMax = (e) => {
-    const value = Number(e.target.value)
-    const novoFiltro = {"valorMaximo": value}
-
-    props.onChangeFilter(novoFiltro)
-    console.log(novoFiltro)
-  }
-
-  
-
-  
-
-  
-
-
+  const { funcaoMax, funcaoMin, funcaoRegex } = props;
   return <BarraLateral>
-      <h2>Filtros:</h2>
-     <label>Valor Mínimo:</label>
-     <input 
-      type="number"
-      min={0}
-      name="valorMinimo"
-      onChange={onChangeMin}
-     />
-     <label>Valor Máximo:</label>
-     <input
-       type="number"
-       max={0}
-       name="valorMaximo"
-       onChange={onChangeMax}
-     />
-     <label>Buscar Produtos:</label>
-     <input 
-      type="text"
-      name="busca"
-      value={props.valorInput}
-      onChange={""}
-     />
-
+    <input placeholder="Maximo" type="number" onChange={funcaoMax} />
+    <input placeholder="Minimo" type="number" onChange={funcaoMin} />
+    <input placeholder="Pesquisar" onChange={funcaoRegex} />
   </BarraLateral>;
 }
 

@@ -66,24 +66,50 @@ const MainContainer = styled.div`
 class App extends React.Component {
   state = {
     produtos: produtos,
-    filtros: {
-      maxValor: "",
-      minValor: "",
-    },
-    buscarProdutos:"",
-  };
+    filtroMax: "",
+    filtroMin: "",
+    regex: "",
+    }
+    
+  
 
-  updateFilterValue = (produto) => {
-    this.setState({filtros: {...this.state.filtros, ...produto},
-    })
+  atualizarMaximo = (evento) => {
+    this.setState({ filtroMax: Number(evento.target.value) })
   }
+
+  atualizarMinimo = (evento) => {
+    this.setState({ filtroMin: Number(evento.target.value) })
+  }
+
+  atualizarRegex = (evento) => {
+    this.setState({ regex: evento.target.value })
+  }
+
+  filtrarProdutos = () => {
+    let filtrados = this.state.produtos;
+    if (this.state.filtroMax) {
+      filtrados = filtrados.filter(item => item.valor <= this.state.filtroMax)
+    }
+    if (this.state.filtroMin) {
+      filtrados = filtrados.filter(item => item.valor >= this.state.filtroMin)
+    }
+    if (this.state.regex) {
+      const regexp = new RegExp(this.state.regex)
+      filtrados = filtrados.filter(item => regexp.test(item.nome))
+    }
+    return filtrados
+  }
+
+  
 
 
   render() {
     return (
     <MainContainer>
       <Filter 
-         onChangeFilter={this.updateFilterValue}
+         funcaoMax={this.atualizarMaximo}
+         funcaoMin={this.atualizarMinimo}
+         funcaoRegex={this.atualizarRegex}
 
       />
       <GridProdutos listaProdutos={this.state.produtos}></GridProdutos>
