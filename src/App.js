@@ -110,7 +110,6 @@ class App extends React.Component {
          funcaoMax={this.atualizarMaximo}
          funcaoMin={this.atualizarMinimo}
          funcaoRegex={this.atualizarRegex}
-
       />
       <GridProdutos listaProdutos={this.state.produtos}></GridProdutos>
       <Carrinho></Carrinho>
