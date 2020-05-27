@@ -55,22 +55,68 @@ const produtos = [
   },
 ];
 
+let numero = 0;
+
 const MainContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
 `;
+
+
 
 class App extends React.Component {
   state = {
     produtos: produtos,
     carrinho: [],
     ordenacao: "crescente",
+    filtroMax: "",
+    filtroMin: "",
+    regex: "",
+    }  
+
+  atualizarMaximo = (evento) => {
+    this.setState({ filtroMax: Number(evento.target.value) })
+  }
+
+  atualizarMinimo = (evento) => {
+    this.setState({ filtroMin: Number(evento.target.value) })
+  }
+
+  atualizarRegex = (evento) => {
+    this.setState({ regex: evento.target.value })
+  }
+
+  filtrarProdutos = () => {
+    let filtrados = this.state.produtos;
+    if (this.state.filtroMax) {
+      filtrados = filtrados.filter(item => item.valor <= this.state.filtroMax)
+    }
+    if (this.state.filtroMin) {
+      filtrados = filtrados.filter(item => item.valor >= this.state.filtroMin)
+    }
+    if (this.state.regex) {
+      const regexp = new RegExp(this.state.regex)
+      filtrados = filtrados.filter(item => regexp.test(item.nome))
+    }
+    return filtrados
+  }
+
+  
+  adicionarAoCarrinho = (produto) => {
+      const novoCarrinho = [...this.state.carrinho, produto];
+      this.setState({ carrinho: novoCarrinho });
   };
 
-  adicionarAoCarrinho = (produto) => {
-    const novoCarrinho = [...this.state.carrinho, produto];
-    this.setState({ carrinho: novoCarrinho });
-  };
+  cancelarCompra = (id) => {
+    const removido = this.state.carrinho.filter(compra => {
+      if (compra.id !== id){
+        return compra
+      }
+    });
+    this.setState({ 
+      carrinho: removido
+    })
+  }
 
   mudarOrdenacao = (evento) => {
     this.setState({ ordenacao: evento.target.value });
@@ -90,17 +136,25 @@ class App extends React.Component {
 
   render() {
     return (
-      <MainContainer>
-        <Filter></Filter>
-        <GridProdutos
-          produtos={this.state.produtos}
+    <MainContainer>
+      <Filter 
+         funcaoMax={this.atualizarMaximo}
+         funcaoMin={this.atualizarMinimo}
+         funcaoRegex={this.atualizarRegex}
+      />
+      <GridProdutos
+          produtos={this.filtrarProdutos()}
           ordenacao={this.state.ordenacao}
           funcaoAdicionar={this.adicionarAoCarrinho}
           funcaoOrdenacao={this.mudarOrdenacao}
-        ></GridProdutos>
-        <Carrinho></Carrinho>
-      </MainContainer>
-    );
+       />
+        <Carrinho 
+          meuCarrinho={this.state.carrinho}
+          funcaoRemover={this.cancelarCompra}
+        />
+    </MainContainer>
+    )
+
   }
 }
 
