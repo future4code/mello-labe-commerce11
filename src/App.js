@@ -72,7 +72,7 @@ class App extends React.Component {
     filtroMax: "",
     filtroMin: "",
     regex: "",
-    }  
+  }
 
   atualizarMaximo = (evento) => {
     this.setState({ filtroMax: Number(evento.target.value) })
@@ -101,19 +101,19 @@ class App extends React.Component {
     return filtrados
   }
 
-  
+
   adicionarAoCarrinho = (produto) => {
-      const novoCarrinho = [...this.state.carrinho, produto];
-      this.setState({ carrinho: novoCarrinho });
+    const novoCarrinho = [...this.state.carrinho, produto];
+    this.setState({ carrinho: novoCarrinho });
   };
 
   cancelarCompra = (id) => {
     const removido = this.state.carrinho.filter(compra => {
-      if (compra.id !== id){
+      if (compra.id !== id) {
         return compra
       }
     });
-    this.setState({ 
+    this.setState({
       carrinho: removido
     })
   }
@@ -136,23 +136,23 @@ class App extends React.Component {
 
   render() {
     return (
-    <MainContainer>
-      <Filter 
-         funcaoMax={this.atualizarMaximo}
-         funcaoMin={this.atualizarMinimo}
-         funcaoRegex={this.atualizarRegex}
-      />
-      <GridProdutos
+      <MainContainer>
+        <Filter
+          funcaoMax={this.atualizarMaximo}
+          funcaoMin={this.atualizarMinimo}
+          funcaoRegex={this.atualizarRegex}
+        />
+        <GridProdutos
           produtos={this.filtrarProdutos()}
           ordenacao={this.state.ordenacao}
           funcaoAdicionar={this.adicionarAoCarrinho}
           funcaoOrdenacao={this.mudarOrdenacao}
-       />
-        <Carrinho 
+        />
+        <Carrinho
           meuCarrinho={this.state.carrinho}
           funcaoRemover={this.cancelarCompra}
         />
-    </MainContainer>
+      </MainContainer>
     )
 
   }

@@ -37,15 +37,15 @@ const ContainerProdutos = styled.div`
 function GridProdutos(props) {
   const { produtos, ordenacao, funcaoAdicionar, funcaoOrdenacao } = props;
 
-  switch(ordenacao){
+  switch (ordenacao) {
     case "crescente":
-      produtos.sort((a, b)=> a.valor - b.valor)
+      produtos.sort((a, b) => a.valor - b.valor)
       break
     case "decrescente":
-      produtos.sort((a, b)=> b.valor - a.valor)
+      produtos.sort((a, b) => b.valor - a.valor)
       break
     default:
-      break  
+      break
   }
 
   return (

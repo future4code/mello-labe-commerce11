@@ -16,9 +16,9 @@ function Carrinho(props) {
 
   meuCarrinho.forEach(item => {
     const estaNoArray = novoCarrinho.findIndex(index => index.id === item.id);
-    if(estaNoArray === -1){
+    if (estaNoArray === -1) {
       const produto = {
-        id:item.id,
+        id: item.id,
         nome: item.nome,
         qtd: 1,
       }
@@ -31,13 +31,13 @@ function Carrinho(props) {
       }
       console.log(novoCarrinho)
     }
-    });
+  });
 
-  const total = meuCarrinho.reduce((acumulador, produto) => 
+  const total = meuCarrinho.reduce((acumulador, produto) =>
     acumulador + produto.valor, 0
   );
 
-  const carrinhoLateral = novoCarrinho.map((produto) => 
+  const carrinhoLateral = novoCarrinho.map((produto) =>
     <div>
       <span>{produto.qtd}x - {produto.nome} </span>
       <button onClick={() => funcaoRemover(produto.id)}>X</button>
@@ -46,9 +46,9 @@ function Carrinho(props) {
   )
 
   return <CarrinhoLateral>
-      <h2>Carrinho</h2>
-      {carrinhoLateral}
-      <div>{`R$ ${total.toFixed(2)}`}</div>
+    <h2>Carrinho</h2>
+    {carrinhoLateral}
+    <div>{`R$ ${total.toFixed(2)}`}</div>
   </CarrinhoLateral>;
 }
 
