@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import Filter from "../Filter/Filter";
 
 const CarrinhoLateral = styled.div`
     display: flex;
@@ -12,7 +11,6 @@ function Carrinho(props) {
 
   const { meuCarrinho, funcaoRemover } = props;
   const novoCarrinho = []
-  let soma = 0;
 
   meuCarrinho.forEach(item => {
     const estaNoArray = novoCarrinho.findIndex(index => index.id === item.id);

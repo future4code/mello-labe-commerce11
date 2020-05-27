@@ -55,7 +55,6 @@ const produtos = [
   },
 ];
 
-let numero = 0;
 
 const MainContainer = styled.div`
   display: grid;
@@ -110,8 +109,9 @@ class App extends React.Component {
   cancelarCompra = (id) => {
     const removido = this.state.carrinho.filter(compra => {
       if (compra.id !== id) {
-        return compra
+        return true
       }
+      return false
     });
     this.setState({
       carrinho: removido
