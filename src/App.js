@@ -154,7 +154,6 @@ class App extends React.Component {
         />
       </MainContainer>
     )
-
   }
 }
 
