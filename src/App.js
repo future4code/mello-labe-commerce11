@@ -14,51 +14,51 @@ const produtos = [
   {
     id: 2,
     nome: "produto 2",
-    valor: 10,
+    valor: 20,
     imgUrl: "https://picsum.photos/200/200?a=2",
   },
   {
     id: 3,
     nome: "produto 3",
-    valor: 10,
+    valor: 30,
     imgUrl: "https://picsum.photos/200/200?a=3",
   },
   {
     id: 4,
     nome: "produto 4",
-    valor: 10,
+    valor: 40,
     imgUrl: "https://picsum.photos/200/200?a=4",
   },
   {
     id: 5,
     nome: "produto 5",
-    valor: 10,
+    valor: 50,
     imgUrl: "https://picsum.photos/200/200?a=5",
   },
   {
     id: 6,
     nome: "produto 6",
-    valor: 10,
+    valor: 60,
     imgUrl: "https://picsum.photos/200/200?a=6",
   },
   {
     id: 7,
     nome: "produto 7",
-    valor: 10,
+    valor: 70,
     imgUrl: "https://picsum.photos/200/200?a=7",
   },
   {
     id: 8,
     nome: "produto 8",
-    valor: 10,
+    valor: 80,
     imgUrl: "https://picsum.photos/200/200?a=8",
   },
 ];
 
+
 const MainContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
-  grid-template-rows: 80vh;
 `;
 
 
@@ -66,12 +66,12 @@ const MainContainer = styled.div`
 class App extends React.Component {
   state = {
     produtos: produtos,
+    carrinho: [],
+    ordenacao: "crescente",
     filtroMax: "",
     filtroMin: "",
     regex: "",
-    }
-    
-  
+  }
 
   atualizarMaximo = (evento) => {
     this.setState({ filtroMax: Number(evento.target.value) })
@@ -100,20 +100,59 @@ class App extends React.Component {
     return filtrados
   }
 
-  
 
+  adicionarAoCarrinho = (produto) => {
+    const novoCarrinho = [...this.state.carrinho, produto];
+    this.setState({ carrinho: novoCarrinho });
+  };
+
+  cancelarCompra = (id) => {
+    const removido = this.state.carrinho.filter(compra => {
+      if (compra.id !== id) {
+        return true
+      }
+      return false
+    });
+    this.setState({
+      carrinho: removido
+    })
+  }
+
+  mudarOrdenacao = (evento) => {
+    this.setState({ ordenacao: evento.target.value });
+  };
+
+  componentDidUpdate() {
+    localStorage.setItem('carrinho', JSON.stringify(this.state.carrinho))
+  }
+
+  componentDidMount() {
+    const carrinhoStr = localStorage.getItem('carrinho');
+    if (carrinhoStr) {
+      const carrinhoObj = JSON.parse(carrinhoStr);
+      this.setState({ carrinho: carrinhoObj });
+    }
+  };
 
   render() {
     return (
-    <MainContainer>
-      <Filter 
-         funcaoMax={this.atualizarMaximo}
-         funcaoMin={this.atualizarMinimo}
-         funcaoRegex={this.atualizarRegex}
-      />
-      <GridProdutos listaProdutos={this.state.produtos}></GridProdutos>
-      <Carrinho></Carrinho>
-    </MainContainer>
+      <MainContainer>
+        <Filter
+          funcaoMax={this.atualizarMaximo}
+          funcaoMin={this.atualizarMinimo}
+          funcaoRegex={this.atualizarRegex}
+        />
+        <GridProdutos
+          produtos={this.filtrarProdutos()}
+          ordenacao={this.state.ordenacao}
+          funcaoAdicionar={this.adicionarAoCarrinho}
+          funcaoOrdenacao={this.mudarOrdenacao}
+        />
+        <Carrinho
+          meuCarrinho={this.state.carrinho}
+          funcaoRemover={this.cancelarCompra}
+        />
+      </MainContainer>
     )
   }
 }
