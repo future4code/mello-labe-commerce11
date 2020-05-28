@@ -2,17 +2,30 @@ import React from "react";
 import styled from "styled-components";
 
 const CarrinhoLateral = styled.div`
-    display: flex;
-    flex-direction: column;
-    border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  font-family: Roboto;
+  border: 1px solid black;
+  margin: 30px 20px 0px 20px;
+  padding: 5px;
+`
+const Title = styled.h3`
+  margin: 10px 5px;
+`
+const Produtos = styled.div`
+  font-size: 20px;
 `
 
 function Carrinho(props) {
 
   const { meuCarrinho, funcaoRemover } = props;
   const novoCarrinho = []
+  let total = 0
 
   meuCarrinho.forEach(item => {
+    
+    total += item.valor;
+
     const estaNoArray = novoCarrinho.findIndex(index => index.id === item.id);
     if (estaNoArray === -1) {
       const produto = {
@@ -31,10 +44,6 @@ function Carrinho(props) {
     }
   });
 
-  const total = meuCarrinho.reduce((acumulador, produto) =>
-    acumulador + produto.valor, 0
-  );
-
   const carrinhoLateral = novoCarrinho.map((produto) =>
     <div>
       <span>{produto.qtd}x - {produto.nome} </span>
@@ -44,9 +53,12 @@ function Carrinho(props) {
   )
 
   return <CarrinhoLateral>
-    <h2>Carrinho</h2>
-    {carrinhoLateral}
-    <div>{`R$ ${total.toFixed(2)}`}</div>
+    <Title>CARRINHO</Title>
+    <Produtos>
+      <hr />
+      {carrinhoLateral}
+      <b>Total:</b> {`R$ ${total.toFixed(2)}`}
+    </Produtos>
   </CarrinhoLateral>;
 }
 
