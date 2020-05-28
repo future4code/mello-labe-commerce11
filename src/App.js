@@ -94,7 +94,7 @@ class App extends React.Component {
       filtrados = filtrados.filter(item => item.valor >= this.state.filtroMin)
     }
     if (this.state.regex) {
-      const regexp = new RegExp(this.state.regex)
+      const regexp = new RegExp(this.state.regex, 'i')
       filtrados = filtrados.filter(item => regexp.test(item.nome))
     }
     return filtrados

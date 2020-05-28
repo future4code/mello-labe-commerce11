@@ -5,33 +5,30 @@ import CardProduto from "../CardProduto/CardProduto";
 const MainContainer = styled.div`
   display: grid;
   grid-template-rows: 40px 1fr;
+  margin-top: 30px;
 `;
 
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 20px;
 `;
 
 const Quantidade = styled.p`
   padding: 10px;
+  font-size: 20px;
 `;
 
 const Ordenacao = styled.select`
   margin-right: 10px;
+  font-size: 15px;
 `;
 
 const ContainerProdutos = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  /* Funciona com grid e flex, gostei mais de flex, mas vou deixar  o grid aqui por enquanto
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px; 
-  */
-  padding: 10px;
-  border: 1px solid red;
 `;
 
 function GridProdutos(props) {
