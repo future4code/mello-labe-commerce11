@@ -35,12 +35,7 @@ function Carrinho(props) {
       }
       novoCarrinho.push(produto)
     } else {
-      const qt = novoCarrinho[estaNoArray].qtd;
-      novoCarrinho[estaNoArray] = {
-        ...novoCarrinho[estaNoArray],
-        qtd: qt + 1,
-      }
-      console.log(novoCarrinho)
+      novoCarrinho[estaNoArray].qtd++;
     }
   });
 
